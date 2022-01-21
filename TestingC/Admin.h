@@ -164,6 +164,7 @@ public:
 						cout << i + 1 << ". ";
 						getline(cin, answers[i]);
 					}
+					status = "Выберите правильный ответ";
 					int right_answer = Menu(answers);
 					temp_tests[categories[cat_ind]][test_name].push_back({
 						{"question", question},
