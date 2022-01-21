@@ -49,7 +49,9 @@ int main() {
 						system("cls");
 						break;
 					}
+					status = { "ADMIN" };
 				} while (choice != 5);
+				status = { "Не авторизован" };
 		}
 			  break;
 		case 2: { // Для пользователя
@@ -77,5 +79,5 @@ int main() {
 			system("cls");
 			break;
 		}
-	} while (log_choice != 0);
+	} while (log_choice);
 }

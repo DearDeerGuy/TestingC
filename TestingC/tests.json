@@ -40,6 +40,28 @@
       }
     ]
   },
+  "Cat_2": {
+    "Sample Test": [
+      {
+        "answers": [
+          "a1",
+          "a2",
+          "a3"
+        ],
+        "question": "q1",
+        "right answer": "a1"
+      },
+      {
+        "answers": [
+          "aa1",
+          "aa2",
+          "aa3"
+        ],
+        "question": "q2",
+        "right answer": "aa3"
+      }
+    ]
+  },
   "HTML": {
     "First HTML": [
       {
@@ -80,5 +102,6 @@
       }
     ]
   },
-  "Java": null
+  "Java": null,
+  "New category": null
 }

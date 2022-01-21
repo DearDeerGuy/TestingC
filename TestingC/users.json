@@ -9,9 +9,9 @@
       "C++": {
         "First test": {
           "last question": 4,
-          "mark": 12,
+          "mark": 9,
           "num questions": 4,
-          "right answers": 4
+          "right answers": 3
         }
       },
       "HTML": {
@@ -23,5 +23,19 @@
         }
       }
     }
+  },
+  {
+    "adress": "Kiev",
+    "login": "z|j}z|j}",
+    "name": "Viktoria",
+    "password": "z|j}",
+    "telephone": "0924323345"
+  },
+  {
+    "adress": "Kiev",
+    "login": "z|j}<",
+    "name": "Andrey",
+    "password": "z|j}<",
+    "telephone": "0943233454"
   }
 ]

@@ -83,10 +83,8 @@ public:
 			message = "\nПользователь с таким логином существует!\n";
 		}
 	}
-	void DeleteUser(string login) { // Удаление пользователя
-		for (size_t i = 0; i < info_base.size(); i++)
-			if (info_base[i]["login"] == Crypt(login))
-				info_base.erase(i);
+	void DeleteUser(int index) { // Удаление пользователя
+		info_base.erase(index);
 	}
 	virtual int Check(string login, string password) { // Проверка совпадения логина и пароля
 		for (size_t i = 0; i < info_base.size(); i++)
@@ -94,8 +92,8 @@ public:
 				return i;
 		return -1;
 	}
-	void Edit(string login) { // Изменение пользователя(полное стирание и перезапись)
-		DeleteUser(login);
+	void Edit(int index) { // Изменение пользователя(полное стирание и перезапись)
+		DeleteUser(index);
 		RegisterUser();
 	}
 	virtual void LogOut() { // Выйти 

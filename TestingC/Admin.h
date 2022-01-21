@@ -101,41 +101,35 @@ public:
 		User u;
 		int choice = Menu({ " <<< Выход", " Зарегистрировать пользователя", " Удалить пользователя", " Изменить пользователя" });
 		system("cls");
+		status = "Выберите пользователя: ";
+		json user_base = u.GetUsers();
+		vector<string> usernames;
+		for (int i = 0; i < user_base.size(); i++)
+			usernames.push_back(user_base[i]["name"]);
 		switch (choice) {
 		case 1: {
 			u.RegisterUser();
 		}
 			  break;
 		case 2: {
-			string login;
-			cout << "Укажите логин пользователя: ";
-			getline(cin, login);
-			u.DeleteUser(login);
+			int user_id = Menu(usernames);
+			u.DeleteUser(user_id);
 		}
 			  break;
 		case 3: {
-			string login;
-			cout << "Укажите логин пользователя: ";
-			getline(cin, login);
-			u.Edit(login);
+			int user_id = Menu(usernames);
+			u.Edit(user_id);
 		}
+			  break;
 		}
 		u.Save();
 	}
 	void TestControl() { // Добавление тестов
 		json temp_tests = ReadTests(tests_file);
 		system("cls");
-		cout << "\n\tТЕСТЫ\n\n";
-		//Показ категорий и тестов
+		status = "ТЕСТЫ";
 		json test = ReadTests(tests_file);
-		vector<string> categories;
-		int cat;
-		for (const auto& n : test.items()) {
-			categories.push_back(n.key());
-			cout << "\t" << categories.size() << ". " << categories[categories.size() - 1] << endl;
-			for (const auto& l : test[n.key()].items())
-				cout << "\t\t" << l.key() << endl;
-		}
+
 		int choice = Menu({ " <<< Выход", " Добавить категорию", " Добавить тест в существующую категорию" });
 		switch (choice) {
 		case 1: {
@@ -146,19 +140,23 @@ public:
 		}
 			  break;
 		case 2: {
-			string answers[3], question, test_name;
-			int que_num, cat_ind;
+			vector<string> categories;
+			for (const auto& n : test.items())
+				categories.push_back(n.key());
+			vector<string> answers{"answer 1", "answer 2", "answer 3"};
+			string question, test_name;
+			int que_num;
+			status = "Выберите категорию";
+			int cat_ind = Menu(categories);
 			cout << "\nДалее заполнение на английском!";
-			cout << "\nУкажите номер категории(до " << categories.size() << ", 0 - отмена): ";
-			cin >> cat_ind;
+			cout << "\nУкажите название теста: ";
+			getline(cin, test_name);
+			cout << "\nУкажите количество вопросов: ";
+			cin >> que_num;
 			cin.ignore();
-			if (cat_ind != 0 || (cat_ind > 0 && cat_ind <= categories.size())) {
-				cout << "\nУкажите название теста: ";
-				getline(cin, test_name);
-				cout << "\nУкажите количество вопросов: ";
-				cin >> que_num;
-				cin.ignore();
+			if (que_num > 0) {
 				for (int i = 0; i < que_num; i++) {
+					system("cls");
 					cout << "\nУкажите вопрос: ";
 					getline(cin, question);
 					cout << "Укажите 3 варианта ответа: \n";
@@ -166,19 +164,13 @@ public:
 						cout << i + 1 << ". ";
 						getline(cin, answers[i]);
 					}
-					int right_answer;
-					do {
-						cout << "Укажите номер правильного ответа: ";
-						cin >> right_answer;
-						cin.ignore();
-					} while (right_answer < 1 || right_answer > 3);
-					temp_tests[categories[cat_ind - 1]][test_name].push_back({
+					int right_answer = Menu(answers);
+					temp_tests[categories[cat_ind]][test_name].push_back({
 						{"question", question},
 						{"answers", answers},
-						{"right answer", answers[right_answer - 1]}
+						{"right answer", answers[right_answer]}
 						});
 				}
-
 			}
 		}
 			  break;
@@ -186,6 +178,7 @@ public:
 		ofstream write(tests_file);
 		write << temp_tests.dump(2);
 		write.close();
+		status = {};
 	}
 	static bool auth_pos() { return isAuth; } // Статус авторизации администратора
 	virtual void ShowStatistic() { // Статистика по пользователям
