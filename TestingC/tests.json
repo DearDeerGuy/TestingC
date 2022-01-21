@@ -101,20 +101,5 @@
         "right answer": "Yes"
       }
     ]
-  },
-  "Java": null,
-  "New category": null,
-  "NewCat": {
-    "My test": [
-      {
-        "answers": [
-          "andwger",
-          "ewrgr34eg",
-          "waer"
-        ],
-        "question": "quest1",
-        "right answer": "waer"
-      }
-    ]
   }
 }
